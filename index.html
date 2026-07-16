@@ -41,7 +41,7 @@
   /* ─── NAV (dark) ─── */
   nav {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 40px; left: 0; right: 0;
     z-index: 100;
     padding: 16px 48px;
     display: flex;
@@ -100,7 +100,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 130px 48px 90px;
+    padding: 170px 48px 90px;
     position: relative;
     overflow: hidden;
   }
@@ -1337,9 +1337,57 @@
     .cta-title { font-size: clamp(2rem, 9vw, 3rem); }
     .cta-sub { font-size: 0.9rem; }
   }
+
+  /* ─── CAMPANHA VOLTA ÀS AULAS - remover após 31/07 ─── */
+  .campaign-banner {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: var(--red);
+    padding: 10px 24px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .campaign-banner a {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+  }
+  .campaign-banner a:hover { opacity: 0.85; }
+
+  .campaign-banner .cb-arrow {
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 480px) {
+    .campaign-banner { padding: 8px 16px; }
+    .campaign-banner a { font-size: 0.75rem; }
+  }
+  /* ─── fim campanha ─── */
 </style>
 </head>
 <body>
+
+<!-- CAMPANHA VOLTA ÀS AULAS - remover após 31/07 -->
+<div class="campaign-banner">
+  <a href="#planos">
+    🎓 VOLTA ÀS AULAS: 15 dias grátis em qualquer plano, sem cartão — aproveite até 31/07
+    <span class="cb-arrow">→</span>
+  </a>
+</div>
+<!-- fim campanha -->
 
 <!-- NAV -->
 <nav id="navbar">
@@ -1390,7 +1438,7 @@
 
       <div class="hero-ctas">
         <a href="#planos" class="btn-primary">
-          Experimentar 5 dias grátis <span class="arr">→</span>
+          Experimentar 15 dias grátis <span class="arr">→</span>
         </a>
         <a href="#catalogo" class="btn-ghost">Ver o catálogo ↓</a>
       </div>
@@ -1439,7 +1487,7 @@
 <!-- BAND -->
 <div class="band">
   <div class="band-item">Acesso imediato</div>
-  <div class="band-item">5 dias grátis</div>
+  <div class="band-item">15 dias grátis</div>
   <div class="band-item">Cancele quando quiser</div>
   <div class="band-item">Certificado incluído</div>
 </div>
@@ -1639,7 +1687,7 @@
 <!-- PLANOS (light) -->
 <section class="light" id="planos">
   <div class="planos-header">
-    <div class="trial-pill">✦ 5 dias grátis em todos os planos ✦</div>
+    <div class="trial-pill">✦ 15 dias grátis em todos os planos ✦</div>
     <div class="section-label">Escolha seu plano</div>
     <h2 class="section-title">Invista na sua carreira<br>por menos de R$1/dia</h2>
     <p class="section-sub">Cancele quando quiser. Acesso imediato a todo o conteúdo.</p>
@@ -1659,7 +1707,7 @@
         <li>App multiplataforma</li>
         <li>Cancele quando quiser</li>
         <li>Certificado 60h após 6 meses</li>
-        <li>5 dias grátis para testar</li>
+        <li>15 dias grátis para testar</li>
       </ul>
       <a href="https://pay.hotmart.com/K22751315T?hideBillet=1&hidePix=1&bid=1667742118041" class="btn-plano btn-outline" target="_blank">Começar grátis</a>
       <p class="plano-note">Sem fidelidade</p>
@@ -1678,7 +1726,7 @@
         <li>App multiplataforma</li>
         <li>Cancele quando quiser</li>
         <li>Certificado 60h após 10 dias</li>
-        <li>5 dias grátis para testar</li>
+        <li>15 dias grátis para testar</li>
       </ul>
       <a href="https://pay.hotmart.com/K22751315T?off=4u8amtc1&bid=1764541686873" class="btn-plano btn-outline" target="_blank">Começar grátis</a>
       <p class="plano-note">6 meses de acesso garantido</p>
@@ -1698,7 +1746,7 @@
         <li>App multiplataforma</li>
         <li>Cancele quando quiser</li>
         <li><strong>Certificado 120h após 10 dias</strong></li>
-        <li>5 dias grátis para testar</li>
+        <li>15 dias grátis para testar</li>
       </ul>
       <a href="https://pay.hotmart.com/K22751315T?off=f9xblv1h&bid=1764541704902" class="btn-plano btn-red" target="_blank">Começar grátis</a>
       <p class="plano-note">Melhor custo-benefício</p>
@@ -1795,7 +1843,7 @@
       <span class="red">ortopedia</span><br>
       começa aqui
     </h2>
-    <p class="cta-sub">5 dias grátis, sem compromisso. Acesso imediato a +250 episódios. Cancele quando quiser.</p>
+    <p class="cta-sub">15 dias grátis, sem cartão. Acesso imediato a +250 episódios. Cancele quando quiser.</p>
     <a href="#planos" class="btn-primary">
       Experimentar gratuitamente <span class="arr">→</span>
     </a>
