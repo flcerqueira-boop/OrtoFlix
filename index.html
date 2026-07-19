@@ -1343,12 +1343,21 @@
   }
   /* ─── fim campanha ─── */
 </style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NWKJWZLST0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NWKJWZLST0');
+</script>
+<!-- fim Google Analytics -->
 </head>
 <body>
 
 <!-- CAMPANHA VOLTA ÀS AULAS - remover após 31/07 -->
 <div class="campaign-banner">
-  <a href="#planos">
+  <a href="#planos" onclick="gtag('event','click_banner_campanha',{'event_category':'Campanha','event_label':'Banner Volta às Aulas'})">
     🎓 VOLTA ÀS AULAS: 15 dias grátis em qualquer plano, sem cartão — aproveite até 31/07
     <span class="cb-arrow">→</span>
   </a>
@@ -1403,7 +1412,7 @@
       </p>
 
       <div class="hero-ctas">
-        <a href="#planos" class="btn-primary">
+        <a href="#planos" class="btn-primary" onclick="gtag('event','click_cta_hero',{'event_category':'CTA','event_label':'Hero - Experimentar 15 dias'})">
           Experimentar 15 dias grátis <span class="arr">→</span>
         </a>
         <a href="#catalogo" class="btn-ghost">Ver o catálogo ↓</a>
@@ -1499,7 +1508,7 @@
       <div class="catalog-total-text">+250 episódios disponíveis hoje</div>
       <div class="catalog-total-sub">Novos conteúdos adicionados toda semana</div>
     </div>
-    <a href="#planos" class="catalog-cta">Quero acesso agora →</a>
+    <a href="#planos" class="catalog-cta" onclick="gtag('event','click_cta_catalogo',{'event_category':'CTA','event_label':'Catálogo - Quero acesso agora'})">Quero acesso agora →</a>
   </div>
 </section>
 
@@ -1664,7 +1673,7 @@
         <li>Certificado 60h após 6 meses</li>
         <li>15 dias grátis para testar</li>
       </ul>
-      <a href="https://pay.hotmart.com/K22751315T?hideBillet=1&hidePix=1&bid=1667742118041" class="btn-plano btn-outline" target="_blank">Começar grátis</a>
+      <a href="https://pay.hotmart.com/K22751315T?hideBillet=1&hidePix=1&bid=1667742118041" class="btn-plano btn-outline" target="_blank" onclick="gtag('event','click_plano_mensal',{'event_category':'Planos','event_label':'Plano Mensal R$29,90'})">Começar grátis</a>
       <p class="plano-note">Sem fidelidade</p>
     </div>
 
@@ -1683,7 +1692,7 @@
         <li>Certificado 60h após 10 dias</li>
         <li>15 dias grátis para testar</li>
       </ul>
-      <a href="https://pay.hotmart.com/K22751315T?off=4u8amtc1&bid=1764541686873" class="btn-plano btn-outline" target="_blank">Começar grátis</a>
+      <a href="https://pay.hotmart.com/K22751315T?off=4u8amtc1&bid=1764541686873" class="btn-plano btn-outline" target="_blank" onclick="gtag('event','click_plano_semestral',{'event_category':'Planos','event_label':'Plano Semestral R$23,98'})">Começar grátis</a>
       <p class="plano-note">6 meses de acesso garantido</p>
     </div>
 
@@ -1703,7 +1712,7 @@
         <li><strong>Certificado 120h após 10 dias</strong></li>
         <li>15 dias grátis para testar</li>
       </ul>
-      <a href="https://pay.hotmart.com/K22751315T?off=f9xblv1h&bid=1764541704902" class="btn-plano btn-red" target="_blank">Começar grátis</a>
+      <a href="https://pay.hotmart.com/K22751315T?off=f9xblv1h&bid=1764541704902" class="btn-plano btn-red" target="_blank" onclick="gtag('event','click_plano_anual',{'event_category':'Planos','event_label':'Plano Anual R$19,90'})">Começar grátis</a>
       <p class="plano-note">Melhor custo-benefício</p>
     </div>
   </div>
@@ -1799,7 +1808,7 @@
       começa aqui
     </h2>
     <p class="cta-sub">15 dias grátis, sem cartão. Acesso imediato a +250 episódios. Cancele quando quiser.</p>
-    <a href="#planos" class="btn-primary">
+    <a href="#planos" class="btn-primary" onclick="gtag('event','click_cta_final',{'event_category':'CTA','event_label':'CTA Final - Experimentar gratuitamente'})">
       Experimentar gratuitamente <span class="arr">→</span>
     </a>
   </div>
