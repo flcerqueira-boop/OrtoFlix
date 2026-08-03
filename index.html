@@ -41,8 +41,8 @@
   /* ─── NAV (dark) ─── */
   nav {
     position: fixed;
-    top: 40px; left: 0; right: 0;
-    z-index: 100; /* JS adjusts this */
+    top: 0; left: 0; right: 0;
+    z-index: 100;
     padding: 16px 48px;
     display: flex;
     align-items: center;
@@ -100,7 +100,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 170px 48px 90px;
+    padding: 130px 48px 90px;
     position: relative;
     overflow: hidden;
   }
@@ -1304,44 +1304,7 @@
     .cta-sub { font-size: 0.9rem; }
   }
 
-  /* ─── CAMPANHA VOLTA ÀS AULAS - remover após 31/07 ─── */
-  .campaign-banner {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 200;
-    background: var(--red);
-    padding: 10px 24px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .campaign-banner a {
-    color: #fff;
-    text-decoration: none;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: opacity 0.2s;
-  }
-  .campaign-banner a:hover { opacity: 0.85; }
-
-  .campaign-banner .cb-arrow {
-    font-size: 0.75rem;
-    opacity: 0.8;
-  }
-
-  @media (max-width: 480px) {
-    .campaign-banner { padding: 8px 16px; }
-    .campaign-banner a { font-size: 0.75rem; }
-  }
-  /* ─── fim campanha ─── */
+  
 </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWKJWZLST0"></script>
@@ -1355,14 +1318,6 @@
 </head>
 <body>
 
-<!-- CAMPANHA VOLTA ÀS AULAS - remover após 31/07 -->
-<div class="campaign-banner">
-  <a href="#planos" onclick="gtag('event','click_banner_campanha',{'event_category':'Campanha','event_label':'Banner Volta às Aulas'})">
-    🎓 VOLTA ÀS AULAS: 15 dias grátis em qualquer plano, sem cartão — aproveite até 31/07
-    <span class="cb-arrow">→</span>
-  </a>
-</div>
-<!-- fim campanha -->
 
 <!-- NAV -->
 <nav id="navbar">
@@ -1412,8 +1367,8 @@
       </p>
 
       <div class="hero-ctas">
-        <a href="#planos" class="btn-primary" onclick="gtag('event','click_cta_hero',{'event_category':'CTA','event_label':'Hero - Experimentar 15 dias'})">
-          Experimentar 15 dias grátis <span class="arr">→</span>
+        <a href="#planos" class="btn-primary" onclick="gtag('event','click_cta_hero',{'event_category':'CTA','event_label':'Hero - Experimentar 5 dias'})">
+          Experimentar 5 dias grátis <span class="arr">→</span>
         </a>
         <a href="#catalogo" class="btn-ghost">Ver o catálogo ↓</a>
       </div>
@@ -1651,7 +1606,7 @@
 <!-- PLANOS (light) -->
 <section class="light" id="planos">
   <div class="planos-header">
-    <div class="trial-pill">✦ 15 dias grátis em todos os planos ✦</div>
+    <div class="trial-pill">✦ 5 dias grátis em todos os planos ✦</div>
     <div class="section-label">Escolha seu plano</div>
     <h2 class="section-title">Invista na sua carreira<br>por menos de R$1/dia</h2>
     <p class="section-sub">Cancele quando quiser. Acesso imediato a todo o conteúdo.</p>
@@ -1671,7 +1626,7 @@
         <li>App multiplataforma</li>
         <li>Cancele quando quiser</li>
         <li>Certificado 60h após 6 meses</li>
-        <li>15 dias grátis para testar</li>
+        <li>5 dias grátis para testar</li>
       </ul>
       <a href="https://pay.hotmart.com/K22751315T?hideBillet=1&hidePix=1&bid=1667742118041" class="btn-plano btn-outline" target="_blank" onclick="gtag('event','click_plano_mensal',{'event_category':'Planos','event_label':'Plano Mensal R$29,90'})">Começar grátis</a>
       <p class="plano-note">Sem fidelidade</p>
@@ -1690,7 +1645,7 @@
         <li>App multiplataforma</li>
         <li>Cancele quando quiser</li>
         <li>Certificado 60h após 10 dias</li>
-        <li>15 dias grátis para testar</li>
+        <li>5 dias grátis para testar</li>
       </ul>
       <a href="https://pay.hotmart.com/K22751315T?off=4u8amtc1&bid=1764541686873" class="btn-plano btn-outline" target="_blank" onclick="gtag('event','click_plano_semestral',{'event_category':'Planos','event_label':'Plano Semestral R$23,98'})">Começar grátis</a>
       <p class="plano-note">6 meses de acesso garantido</p>
@@ -1710,7 +1665,7 @@
         <li>App multiplataforma</li>
         <li>Cancele quando quiser</li>
         <li><strong>Certificado 120h após 10 dias</strong></li>
-        <li>15 dias grátis para testar</li>
+        <li>5 dias grátis para testar</li>
       </ul>
       <a href="https://pay.hotmart.com/K22751315T?off=f9xblv1h&bid=1764541704902" class="btn-plano btn-red" target="_blank" onclick="gtag('event','click_plano_anual',{'event_category':'Planos','event_label':'Plano Anual R$19,90'})">Começar grátis</a>
       <p class="plano-note">Melhor custo-benefício</p>
@@ -1807,7 +1762,7 @@
       <span class="red">ortopedia</span><br>
       começa aqui
     </h2>
-    <p class="cta-sub">15 dias grátis, sem cartão. Acesso imediato a +250 episódios. Cancele quando quiser.</p>
+    <p class="cta-sub">5 dias grátis, sem cartão. Acesso imediato a +250 episódios. Cancele quando quiser.</p>
     <a href="#planos" class="btn-primary" onclick="gtag('event','click_cta_final',{'event_category':'CTA','event_label':'CTA Final - Experimentar gratuitamente'})">
       Experimentar gratuitamente <span class="arr">→</span>
     </a>
@@ -1858,19 +1813,6 @@
       ? 'rgba(255,255,255,0.08)'
       : 'rgba(255,255,255,0.06)';
   });
-
-  // Ajustar nav ao banner dinamicamente
-  function adjustNavTop() {
-    const banner = document.querySelector('.campaign-banner');
-    const nav = document.getElementById('navbar');
-    if (banner && nav) {
-      const bannerHeight = banner.offsetHeight;
-      nav.style.top = bannerHeight + 'px';
-      document.querySelector('.hero').style.paddingTop = (bannerHeight + 80 + 50) + 'px';
-    }
-  }
-  adjustNavTop();
-  window.addEventListener('resize', adjustNavTop);
 
   function toggleMenu() {
     const menu = document.getElementById('mobileMenu');
