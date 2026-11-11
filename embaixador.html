@@ -725,6 +725,13 @@
     .steps { border: none; gap: 12px; }
     .step { border: 1px solid var(--border); padding: 24px 20px; }
   }
+
+  /* ─── STATUS DO FORMULÁRIO ─── */
+  .form-status { display: none; margin-top: 16px; padding: 14px 18px; font-size: 0.88rem; line-height: 1.55; }
+  .form-status.ok  { display: block; background: rgba(42,157,92,0.08); border: 1px solid rgba(42,157,92,0.25); color: #2a9d5c; }
+  .form-status.err { display: block; background: rgba(232,25,44,0.06); border: 1px solid rgba(232,25,44,0.25); color: #b01020; }
+  .form-status a { color: inherit; font-weight: 700; }
+  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 </style>
 </head>
 <body>
@@ -790,7 +797,7 @@
 
       <p>Não foi um convite em massa. Não foi um formulário aberto para todo mundo. Eu procurei, observei, e decidi que <strong>você é a pessoa certa para representar a OrtoFlix na sua faculdade</strong> — seja pelo seu papel no centro acadêmico, na liga, ou pela forma como você se posiciona nas redes sociais.</p>
 
-      <p>Criei a OrtoFlix com um propósito claro: ser o conteúdo de fisioterapia ortopédica que <strong>a faculdade não te ensina do jeito que precisa</strong>. Depois de 17 anos de clínica e 15 anos como professor universitário, sei exatamente onde estão as lacunas — e é lá que a OrtoFlix atua.</p>
+      <p>Criei a OrtoFlix com um propósito claro: ser o conteúdo de fisioterapia ortopédica que <strong>a faculdade não te ensina do jeito que precisa</strong>. Depois de 18 anos de clínica e 15 anos como professor universitário, sei exatamente onde estão as lacunas — e é lá que a OrtoFlix atua.</p>
 
       <p>O programa Embaixador existe porque acredito que os melhores divulgadores da OrtoFlix são os próprios estudantes que a usam. Você não vai vender — vai <strong>indicar algo que você acredita</strong>. E por cada indicação, você vai ser remunerado, inclusive de forma recorrente: enquanto os assinantes que você trouxer continuarem pagando, você continua recebendo, mesmo sem fazer mais nada.</p>
 
@@ -960,29 +967,30 @@
     <p style="font-size:0.95rem; color:var(--text-mid); font-weight:300; max-width:480px;">Preencha o formulário abaixo para oficializar seu cadastro no Programa Embaixador OrtoFlix.</p>
 
     <form class="form-grid" id="embaixadorForm" onsubmit="submitForm(event)">
+      <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="form-group">
         <label>Nome completo</label>
-        <input type="text" placeholder="Seu nome completo" required>
+        <input type="text" name="nome" placeholder="Seu nome completo" required>
       </div>
       <div class="form-group">
         <label>E-mail</label>
-        <input type="email" placeholder="seu@email.com" required>
+        <input type="email" name="email" placeholder="seu@email.com" required>
       </div>
       <div class="form-group">
         <label>Universidade / Faculdade</label>
-        <input type="text" placeholder="Nome da sua instituição" required>
+        <input type="text" name="universidade" placeholder="Nome da sua instituição" required>
       </div>
       <div class="form-group">
         <label>Cidade e Estado</label>
-        <input type="text" placeholder="Ex: Aracaju — SE" required>
+        <input type="text" name="cidade" placeholder="Ex: Aracaju — SE" required>
       </div>
       <div class="form-group">
         <label>Instagram</label>
-        <input type="text" placeholder="@seuperfil">
+        <input type="text" name="instagram" placeholder="@seuperfil">
       </div>
       <div class="form-group">
         <label>Semestre atual</label>
-        <select required>
+        <select name="semestre" required>
           <option value="" disabled selected>Selecione</option>
           <option>1º semestre</option>
           <option>2º semestre</option>
@@ -999,15 +1007,13 @@
       </div>
       <div class="form-group full">
         <label>Como você pretende divulgar a OrtoFlix?</label>
-        <textarea placeholder="Conte um pouco sobre seu plano de divulgação, seus canais e sua participação na faculdade..."></textarea>
+        <textarea name="divulgacao" placeholder="Conte um pouco sobre seu plano de divulgação, seus canais e sua participação na faculdade..."></textarea>
       </div>
       <div class="form-group full">
-        <button type="submit" class="btn-submit" onclick="gtag('event','submit_form_embaixador',{'event_category':'Embaixador','event_label':'Formulário enviado'})">
+        <button type="submit" class="btn-submit">
           Confirmar participação →
         </button>
-        <div class="form-success" id="formSuccess">
-          ✓ Cadastro enviado com sucesso! O Professor Felipe entrará em contato em breve.
-        </div>
+        <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
       </div>
     </form>
   </div>
@@ -1020,7 +1026,6 @@
   </div>
   <div class="footer-links">
     <a href="index.html" class="footer-link">← Voltar ao site</a>
-    <a href="fisioq.html" class="footer-link">FisioQ</a>
     <a href="ja-sou-assinante.html" class="footer-link">Já sou assinante</a>
   </div>
   <div class="footer-copy">© 2026 OrtoFlix — Prof. Felipe Cerqueira. Todos os direitos reservados.</div>
@@ -1056,31 +1061,66 @@
     }
   }
 
+
+  // ─── ENVIO DE FORMULÁRIOS (FormSubmit) ───
+  // Depois de ativar o FormSubmit, troque o e-mail abaixo pelo código aleatório que eles enviam.
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/suporte@ortoflix.com';
+
+  async function sendForm(fields) {
+    const res = await fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(fields)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (data.success !== true && data.success !== 'true') {
+      throw new Error(data.message || 'Falha no envio');
+    }
+    return data;
+  }
+
+  const ERRO_ENVIO = 'Não conseguimos enviar agora. Escreva direto para ' +
+    '<a href="mailto:suporte@ortoflix.com">suporte@ortoflix.com</a> informando seu nome completo e o e-mail de cadastro.';
+
   // ─── FORMULÁRIO ───
-  function submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
     const form = document.getElementById('embaixadorForm');
-    const success = document.getElementById('formSuccess');
-
-    // Coletar dados
-    const inputs = form.querySelectorAll('input, select, textarea');
-    const campos = ['Nome', 'Email', 'Universidade', 'Cidade/Estado', 'Instagram', 'Semestre', 'Plano de divulgação'];
-    let corpo = 'Novo cadastro — Programa Embaixador OrtoFlix\n\n';
-    inputs.forEach((el, i) => {
-      if (campos[i]) corpo += campos[i] + ': ' + el.value + '\n';
-    });
-
-    // Enviar via mailto
-    const subject = encodeURIComponent('Novo Embaixador OrtoFlix — ' + inputs[0].value);
-    const body = encodeURIComponent(corpo);
-    window.open('mailto:suporte@ortoflix.com?subject=' + subject + '&body=' + body);
-
-    // Mostrar sucesso
-    success.style.display = 'block';
+    if (form.elements['_honey'].value) return;   // robô: ignora
     const btn = form.querySelector('.btn-submit');
-    btn.textContent = 'Enviado! ✓';
-    btn.style.background = '#2a9d5c';
+    const status = document.getElementById('formStatus');
+    const textoOriginal = btn.textContent.trim();
+
     btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    status.className = 'form-status';
+    status.textContent = '';
+
+    try {
+      await sendForm({
+        _subject: 'Novo Embaixador OrtoFlix — ' + form.elements['nome'].value,
+        _template: 'table',
+        _captcha: 'false',
+        'Nome': form.elements['nome'].value,
+        'email': form.elements['email'].value,
+        'Universidade': form.elements['universidade'].value,
+        'Cidade/Estado': form.elements['cidade'].value,
+        'Instagram': form.elements['instagram'].value,
+        'Semestre': form.elements['semestre'].value,
+        'Plano de divulgação': form.elements['divulgacao'].value
+      });
+      status.className = 'form-status ok';
+      status.textContent = '✓ Cadastro enviado com sucesso! O Professor Felipe entrará em contato em breve.';
+      btn.textContent = 'Enviado! ✓';
+      btn.style.background = '#2a9d5c';
+      if (typeof gtag === 'function') gtag('event', 'submit_form_embaixador', {event_category: 'Embaixador', event_label: 'Formulário enviado'});
+    } catch (err) {
+      status.className = 'form-status err';
+      status.innerHTML = ERRO_ENVIO;
+      btn.textContent = textoOriginal;
+      btn.disabled = false;
+    }
   }
 
   // Scroll reveal
