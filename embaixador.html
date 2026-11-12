@@ -1063,8 +1063,8 @@
 
 
   // ─── ENVIO DE FORMULÁRIOS (FormSubmit) ───
-  // Depois de ativar o FormSubmit, troque o e-mail abaixo pelo código aleatório que eles enviam.
-  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/suporte@ortoflix.com';
+  // Código aleatório do FormSubmit (no lugar do e-mail), para o endereço não ficar exposto no formulário.
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/6051683675828fd0fa501a93beb7aad1';
 
   async function sendForm(fields) {
     const res = await fetch(FORM_ENDPOINT, {
@@ -1078,6 +1078,14 @@
       throw new Error(data.message || 'Falha no envio');
     }
     return data;
+  }
+
+  // Mostra o motivo técnico do erro só com ?debug=1 na URL (e sempre no console do navegador)
+  function detalheTecnico(err) {
+    console.error('[formulário]', err);
+    if (!/[?&]debug=1/.test(window.location.search)) return '';
+    const t = String((err && err.message) || err).replace(/[<>&]/g, '');
+    return '<br><small>Detalhe técnico: ' + t + '</small>';
   }
 
   const ERRO_ENVIO = 'Não conseguimos enviar agora. Escreva direto para ' +
@@ -1117,7 +1125,7 @@
       if (typeof gtag === 'function') gtag('event', 'submit_form_embaixador', {event_category: 'Embaixador', event_label: 'Formulário enviado'});
     } catch (err) {
       status.className = 'form-status err';
-      status.innerHTML = ERRO_ENVIO;
+      status.innerHTML = ERRO_ENVIO + detalheTecnico(err);
       btn.textContent = textoOriginal;
       btn.disabled = false;
     }
