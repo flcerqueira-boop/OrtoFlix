@@ -127,7 +127,7 @@
   const PLANOS = {
     mensal: {
       nome: 'mensal', ciclo: 'a cada ciclo de 1 mês (plano mensal)', frase: 'todo mês',
-      offer: null,
+      offer: 'kl96yj3n',
       url: 'https://pay.hotmart.com/K22751315T?hideBillet=1&hidePix=1&bid=1667742118041'
     },
     semestral: {
@@ -178,7 +178,7 @@
       if (mounted) return;
 
       // plano sem checkout embutido: segue para o checkout normal da Hotmart
-      if (!plano.offer) { mounted = true; redirectBox.hidden = false; track('assinar_redirect'); return; }
+      if (!plano.offer) { mounted = true; container.hidden = true; redirectBox.hidden = false; track('assinar_redirect'); return; }
 
       if (typeof checkoutElements === 'undefined') { showFallback('script_indisponivel'); return; }
 
