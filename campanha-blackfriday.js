@@ -115,10 +115,10 @@
   banner.innerHTML =
     '<a href="#planos">' +
     (preview && !naJanela ? '<span class="bf-prev">PRÉVIA</span>' : '') +
-    '🖤 <b>BLACK FRIDAY ORTOFLIX:</b> <b>' + p.mensal.desconto + '% OFF</b> no mensal · <b>' +
-    p.semestral.desconto + '%</b> no semestral · <b>' + p.anual.desconto + '%</b> no anual' +
-    (BF.descontoRecorrente ? ' — o desconto vale também nas renovações' : '') +
-    ' · até ' + BF.fimLabel + (restante ? ' (' + restante + ')' : '') +
+    '🔥 <b>BLACK FRIDAY ORTOFLIX:</b> <b>' + p.mensal.desconto + '% OFF</b> no mensal | <b>' +
+    p.semestral.desconto + '% OFF</b> no semestral | <b>' + p.anual.desconto + '% OFF</b> no anual.' +
+    (BF.descontoRecorrente ? '<br><b>Desconto vitalício em todas as renovações!</b>' : '') +
+    '<br>Só até ' + BF.fimLabel + '.' +
     ' <span class="bf-cta">Ver planos →</span></a>';
   document.body.insertBefore(banner, document.body.firstChild);
   document.body.classList.add('bf-on');
