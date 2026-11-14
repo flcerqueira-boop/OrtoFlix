@@ -73,6 +73,7 @@
   .redirect-box p { font-size: 0.92rem; color: var(--text-mid); margin-bottom: 14px; }
   .btn-pay { display: inline-block; background: var(--red); color: #fff; text-decoration: none; padding: 15px 36px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); }
   .btn-pay:hover { background: var(--red-dark); }
+  #bfLinha { color: var(--text-dark); }
 </style>
 </head>
 <body>
@@ -90,6 +91,7 @@
   <div class="card notice">
     <h2>Como funciona</h2>
     <p>Você ganhou <strong>5 dias grátis</strong>. A primeira cobrança acontece somente após esse período.</p>
+    <p id="bfLinha" hidden></p>
     <p id="cicloTexto"></p>
     <p>Se preferir não renovar, você pode cancelar a qualquer momento, antes da próxima cobrança. <a href="ja-sou-assinante.html" target="_blank">Veja como cancelar.</a></p>
 
@@ -120,6 +122,8 @@
 </main>
 
 <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
+<!-- CAMPANHA BLACK FRIDAY - remover após 30/11 (apague também campanha-blackfriday.js) -->
+<script src="campanha-blackfriday.js"></script>
 <script>
   // ─── PLANOS ───
   // offer = código da oferta na Hotmart ("Preços e ofertas"). Sem código (null), a página
@@ -145,17 +149,30 @@
 
   (function () {
     const chave = (new URLSearchParams(window.location.search).get('plano') || '').toLowerCase();
-    const plano = PLANOS[chave];
-    if (!plano) { window.location.replace('index.html#planos'); return; }   // sem plano válido: volta à escolha
+    const base = PLANOS[chave];
+    if (!base) { window.location.replace('index.html#planos'); return; }   // sem plano válido: volta à escolha
+
+    // Campanha Black Friday (ver campanha-blackfriday.js): dentro da janela, troca oferta e link de reserva
+    const BFC = (window.BF_CAMPANHA && window.BF_CAMPANHA.ativa) ? window.BF_CAMPANHA : null;
+    const bf = BFC ? BFC.config.planos[chave] : null;
+    const plano = bf ? Object.assign({}, base, { offer: bf.offer, url: bf.url }) : base;
 
     const $ = (id) => document.getElementById(id);
     const box = $('aceite'), lock = $('lock'), wrap = $('payWrap');
     const container = $('inline_checkout'), fallback = $('fallback'), redirectBox = $('redirectBox');
-    const SCK = 'site-assinar-' + plano.nome;
+    const SCK = (bf ? 'bf26-' : 'site-assinar-') + plano.nome;
 
     // textos que dependem do plano
     document.title = 'Assinar OrtoFlix — Plano ' + plano.nome;
-    $('leadPlano').textContent = 'Você escolheu o plano ' + plano.nome + '. Falta só mais um passo.';
+    $('leadPlano').textContent = 'Você escolheu o plano ' + plano.nome +
+      (bf ? ' (Black Friday −' + bf.desconto + '%)' : '') + '. Falta só mais um passo.';
+    if (bf) {
+      const linha = $('bfLinha');
+      linha.innerHTML = '<strong>Black Friday:</strong> R$ ' + bf.totalBF + ' ' + bf.cobranca +
+        ' (de R$ ' + bf.totalNormal + ').' +
+        (BFC.config.descontoRecorrente ? ' O desconto é mantido nas renovações.' : '');
+      linha.hidden = false;
+    }
     $('cicloTexto').textContent = 'Sua assinatura é renovada automaticamente ' + plano.ciclo +
       ', garantindo que você continue aproveitando todos os conteúdos da OrtoFlix sem interrupções.';
     $('aceiteTexto').textContent = 'Entendi! Estou ciente de que minha assinatura será renovada automaticamente ' +
@@ -166,7 +183,7 @@
     let mounted = false;
 
     function track(name, extra) {
-      if (typeof gtag === 'function') gtag('event', name, Object.assign({ event_label: plano.nome }, extra || {}));
+      if (typeof gtag === 'function') gtag('event', name, Object.assign({ event_label: plano.nome }, bf ? { campanha: 'bf26' } : {}, extra || {}));
     }
 
     function showFallback(reason) {
